@@ -1,0 +1,111 @@
+interface Stack {
+    void push(int element);
+    int pop();
+    boolean isEmpty();
+    int size();
+}
+
+class FixedLengthStack implements Stack {
+    private int[] stackArray;
+    private int top;
+    private int capacity;
+
+    public FixedLengthStack(int capacity) {
+        this.capacity = capacity;
+        this.stackArray = new int[capacity];
+        this.top = -1;
+    }
+
+    @Override
+    public void push(int element) {
+        if (top == capacity - 1) {
+            System.out.println("Stack Overflow: Cannot push element, stack is full.");
+            return;
+        }
+        stackArray[++top] = element;
+    }
+
+    @Override
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow: Cannot pop element, stack is empty.");
+            return -1;
+        }
+        return stackArray[top--];
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    @Override
+    public int size() {
+        return top + 1;
+    }
+}
+
+class DynamicLengthStack implements Stack {
+    private int[] stackArray;
+    private int top;
+    private int capacity;
+
+    public DynamicLengthStack() {
+        this.capacity = 10;
+        this.stackArray = new int[capacity];
+        this.top = -1;
+    }
+
+    @Override
+    public void push(int element) {
+        if (top == capacity - 1) {
+            capacity *= 2;
+            int[] newStackArray = new int[capacity];
+            System.arraycopy(stackArray, 0, newStackArray, 0, stackArray.length);
+            stackArray = newStackArray;
+        }
+        stackArray[++top] = element;
+    }
+
+    @Override
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow: Cannot pop element, stack is empty.");
+            return -1;
+        }
+        return stackArray[top--];
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    @Override
+    public int size() {
+        return top + 1;
+    }
+}
+
+public class StackDemo {
+    public static void main(String[] args) {
+        Stack fixedStack = new FixedLengthStack(3);
+        fixedStack.push(10);
+        fixedStack.push(20);
+        fixedStack.push(30);
+        System.out.println("Fixed Stack Size: " + fixedStack.size());
+        System.out.println("Popped from Fixed Stack: " + fixedStack.pop());
+        fixedStack.push(40);
+        System.out.println("Fixed Stack Size after push: " + fixedStack.size());
+
+        Stack dynamicStack = new DynamicLengthStack();
+        dynamicStack.push(5);
+        dynamicStack.push(10);
+        dynamicStack.push(15);
+        dynamicStack.push(20);
+        System.out.println("Dynamic Stack Size: " + dynamicStack.size());
+        System.out.println("Popped from Dynamic Stack: " + dynamicStack.pop());
+        dynamicStack.push(25);
+        System.out.println("Dynamic Stack Size after push: " + dynamicStack.size());
+    }
+}
