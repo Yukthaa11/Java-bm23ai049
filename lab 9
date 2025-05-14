@@ -1,9 +1,3 @@
-interface Stack {
-    void push(int element);
-    int pop();
-    boolean isEmpty();
-    int size();
-}
 
 class FixedLengthStack implements Stack {
     private int[] stackArray;
