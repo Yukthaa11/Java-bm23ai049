@@ -1,0 +1,61 @@
+// File: A.java (Package: apack)
+package apack;
+
+public class A {
+    int defaultVar;       
+    protected int protectedVar;  
+    private int privateVar; 
+    public int publicVar;  
+
+    public A() {
+        this.defaultVar = 10;
+        this.protectedVar = 20;
+        this.privateVar = 30;
+        this.publicVar = 40;
+    }
+}
+
+// File: B.java (Package: bpack)
+package bpack;
+
+import apack.A;
+
+public class B extends A {
+    public void display() {
+        System.out.println("In class B:");
+        System.out.println("Default Variable: " + defaultVar);     
+        System.out.println("Protected Variable: " + protectedVar); 
+        System.out.println("Public Variable: " + publicVar);       
+    }
+}
+
+// File: C.java (Package: cpack)
+package cpack;
+
+import apack.A;
+
+public class C {
+    public void display() {
+        A objA = new A(); 
+
+        System.out.println("In class C:");
+        System.out.println("Default Variable: " + objA.defaultVar);   
+        System.out.println("Public Variable: " + objA.publicVar);        
+    }
+}
+
+// File: ProtectedDemo.java (Package: dpack)
+package dpack;
+
+import bpack.B;
+import cpack.C;
+
+public class ProtectedDemo {
+    public static void main(String[] args) {
+        B objB = new B();
+        C objC = new C();
+
+        objB.display();
+        objC.display();
+    }
+}
